@@ -1,6 +1,7 @@
 import React, { Component, useState } from 'react'
 import { Text, View, StyleSheet, Button, TouchableHighlight, TextInput, Alert,ScrollView } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import shortid from 'shortid';
 
 export const Formulario = () => {
 
@@ -51,6 +52,11 @@ export const Formulario = () => {
 
       mostrarAlert();
         }
+
+        const cita = {paciente,propietario,telefono,sintomas,fecha,hora};
+        cita.id = shortid.generate();
+        console.log(cita);
+        
   }
 
   const mostrarAlert = ()=>{
