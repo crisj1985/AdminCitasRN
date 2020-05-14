@@ -6,6 +6,12 @@ export const Formulario = () => {
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+  const [fecha,setFecha] = useState("");
+  const [hora, setHora] = useState("");
+  const [paciente, setPaciente] = useState("");
+  const [propietario, setPropietario] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [sintomas, setSintomas] = useState("");
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -16,7 +22,8 @@ export const Formulario = () => {
   };
 
   const confirmarFecha = (date) => {
-    console.warn("A date has been picked: ", date);
+    const opciones = {year:'numeric', month:'long', day:'2-digit'}
+    setFecha(date.toLocaleString("es_ES"),opciones) ;
     hideDatePicker();
   };
 
@@ -28,10 +35,14 @@ export const Formulario = () => {
     setTimePickerVisibility(false);
   };
 
-  const confirmarHora = (date) => {
-    console.warn("A date has been picked: ", date);
+  const confirmarHora = (hora) => {
+    setHora(hora.toLocaleTimeString('en-US'));    
     hideTimePicker();
   };
+
+  const crearNuevaCita = () => {
+
+  }
 
 
 
@@ -40,17 +51,17 @@ export const Formulario = () => {
         <View style={styles.formulario}>
           <View>
             <Text style={styles.label}> Paciente: </Text>
-            <TextInput style={styles.input} onChangeText={txt => {}} />
+            <TextInput style={styles.input} onChangeText={txt => setPaciente(txt)} />
           </View>
           <View>
             <Text style={styles.label}> Dueno: </Text>
-            <TextInput style={styles.input} onChangeText={txt => {}} />
+            <TextInput style={styles.input} onChangeText={txt =>  setPropietario(txt)} />
           </View>
           <View>
             <Text style={styles.label}> Telefono Contacto: </Text>
             <TextInput
               style={styles.input}
-              onChangeText={txt => {}}
+              onChangeText={txt => setTelefono(txt)}
               keyboardType="phone-pad"
             />
           </View>
@@ -59,21 +70,23 @@ export const Formulario = () => {
             <TextInput
               multiline
               style={styles.input}
-              onChangeText={txt => {}}
+              onChangeText={txt => setSintomas(txt)}
             />
           </View>
 
           <View>
+            <Text style={styles.label}>Fecha:</Text>
             <Button title="Seleccionar Fecha" onPress={showDatePicker} />
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
               mode="date"
               onConfirm={confirmarFecha}
               onCancel={hideDatePicker}
-              locale = "es_Es"
             />
+            <Text>{fecha}</Text>
           </View>
           <View>
+            <Text style={styles.label}>Hora:</Text>
             <Button title="Seleccionar Hora" onPress={showTimePicker} />
             <DateTimePickerModal
               isVisible={isTimePickerVisible}
@@ -82,7 +95,13 @@ export const Formulario = () => {
               onCancel={hideTimePicker}
               is24Hour
             />
+            <Text>{hora}</Text>
           </View>
+          <TouchableHighlight
+            onPress={() => crearNuevaCita()}
+            style={styles.btnSubmit}>
+            <Text style={styles.txtSubmit}>Crear Nueva Cita</Text>
+          </TouchableHighlight>
         </View>
       </>
     );
@@ -104,5 +123,15 @@ const styles = StyleSheet.create({
         borderColor: "#e1e1e1",
         borderWidth: 1,
         borderStyle: "solid"
-    }
+    },
+  btnSubmit: {
+    padding: 10,
+    backgroundColor: "#7d024e",
+    marginVertical: 10
+  },
+  txtSubmit: {
+    color: "#FFF",
+    fontWeight: 'bold',
+    textAlign: 'center'
+  }
 })
