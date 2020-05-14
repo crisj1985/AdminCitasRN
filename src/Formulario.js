@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react'
-import { Text, View, StyleSheet, Button, TouchableHighlight, TextInput } from 'react-native'
+import { Text, View, StyleSheet, Button, TouchableHighlight, TextInput, Alert } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 export const Formulario = () => {
@@ -41,7 +41,24 @@ export const Formulario = () => {
   };
 
   const crearNuevaCita = () => {
+    if (paciente.trim() === '' || 
+        propietario.trim() === '' || 
+        sintomas.trim() === '' || 
+        telefono.trim() === '' || 
+        fecha.trim() === '' || 
+        hora.trim() === ''){
+          console.log("Algo FALLO");
 
+      mostrarAlert();
+        }
+  }
+
+  const mostrarAlert = ()=>{
+    Alert.alert(
+      'Error',
+      'Todos los campos son obligatorios',
+      [{text:'Ok'}]
+    )
   }
 
 
