@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react'
-import { Text, View, StyleSheet, Button, TouchableHighlight, TextInput, Alert } from 'react-native'
+import { Text, View, StyleSheet, Button, TouchableHighlight, TextInput, Alert,ScrollView } from 'react-native'
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 export const Formulario = () => {
@@ -65,7 +65,7 @@ export const Formulario = () => {
 
     return (
       <>
-        <View style={styles.formulario}>
+        <ScrollView style={styles.formulario}>
           <View>
             <Text style={styles.label}> Paciente: </Text>
             <TextInput style={styles.input} onChangeText={txt => setPaciente(txt)} />
@@ -119,7 +119,7 @@ export const Formulario = () => {
             style={styles.btnSubmit}>
             <Text style={styles.txtSubmit}>Crear Nueva Cita</Text>
           </TouchableHighlight>
-        </View>
+        </ScrollView>
       </>
     );
 }
