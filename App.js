@@ -23,40 +23,33 @@ const App = () => {
   }
 
   return (
-    <View style= {styles.contenedor}>
-      <Text style={styles.titulo} >Administrador de Citas</Text>
-      <TouchableHighlight
-        onPress={() => mostrarFormulario()}
-        style={styles.btnMostrarForm}>
+    <View style={styles.contenedor}>
+      <Text style={styles.titulo}>Administrador de Citas</Text>
+      <TouchableHighlight onPress={() => mostrarFormulario()} style={styles.btnMostrarForm}>
         <Text style={styles.txtMostrarForm}>Crear Nueva Cita</Text>
       </TouchableHighlight>
-     <View style={styles.contenido}>
-       {mostrarForm
-       ?
+      <View style={styles.contenido}>
+        {mostrarForm ? (
           <>
-            <Text style={styles.titulo} >Crear Nueva Cita</Text>
-            <Formulario />  
-            
+            <Text style={styles.titulo}>Crear Nueva Cita</Text>
+            <Formulario citas={citas} setCitas={setCitas} mostrarFormulario={mostrarFormulario} />
           </>
-       : 
+        ) : (
           <>
-          <Text style={styles.titulo}> {citas.length > 0 ? 'Administra tus citas' : 'No tienes citas, agrega una'} </Text>
-          <FlatList
-            data={citas}
-            renderItem={({ item }) =>
-              <Cita cita={item} eliminarPaciente={eliminarPaciente} />
-            }
-            keyExtractor={item => item.id}
-            style={styles.listado}
-          />
+            <Text style={styles.titulo}>
+              {citas.length > 0 ? 'Administra tus citas' : 'No tienes citas, agrega una'}{' '}
+            </Text>
+            <FlatList
+              data={citas}
+              renderItem={({ item }) => <Cita cita={item} eliminarPaciente={eliminarPaciente} />}
+              keyExtractor={(item) => item.id + ''}
+              style={styles.listado}
+            />
           </>
-       }
-        
-       
-     </View>
+        )}
+      </View>
     </View>
-    
-  );
+  )
 };
 
 const styles = StyleSheet.create({  
